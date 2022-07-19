@@ -1,16 +1,1 @@
-spring:
- cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-      - id: MSEmployee
-        uri: lb://MSEmployee
-        predicates:
-          - Path=/empcontroller/getemp/*
-          
-      - id: MSOffice
-        uri: lb://MSOffice
-        predicates:
-          - Path=/office/getoffice/*
+https://lex.infosysapps.com/web/en/viewer/web-module/lex_auth_01344041914755481640?collectionId=lex_auth_01269872058301644883&collectionType=Course&pathId=lex_auth_01344041122078720038
