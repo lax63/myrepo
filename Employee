@@ -1,1 +1,23 @@
-Paste code here 
+<dependency>
+  <groupId>io.github.resilience4j</groupId>
+  <artifactId>resilience4j-spring-boot2</artifactId>
+  </dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-aop</artifactId>
+</dependency>
+    
+ @GetMapping("/getemp/{id}")
+    @CircuitBreaker(name="employeeService",fallbackMethod = "getEmployeeFallBack")
+    public EmployeeDTO getEmployee(@PathVariable("id") int id ) {
+from IIHT WebEx 5 to everyone:    10:13 AM
+public EmployeeDTO getEmployeeFallBack(int id,Throwable e) {
+        System.out.println("********* FallBack Method ");
+        return new EmployeeDTO();
+    }
+from IIHT WebEx 5 to everyone:    10:13 AM
+@GetMapping("/getoffice/{id}")
+    public Office getOffice(@PathVariable("id") int  id) {
+        System.out.println("hey Instance has been hit by the load balance");
+        if(id==103)
+   throw new RuntimeException();
