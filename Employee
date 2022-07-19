@@ -1,19 +1,16 @@
-<dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-</dependencyManagement>
-server:
-  port: 9000
 spring:
-  application:
-    name: MSGateway
-  cloud:
-    consul:
-        hostname: localhost
+ cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: MSEmployee
+        uri: lb://MSEmployee
+        predicates:
+          - Path=/empcontroller/getemp/*
+          
+      - id: MSOffice
+        uri: lb://MSOffice
+        predicates:
+          - Path=/office/getoffice/*
