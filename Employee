@@ -1,8 +1,12 @@
-resilience4j.circuitbreaker:
- instances:
-  employeeService:           
-   failureRateThreshold: 50
-   ringBufferSizeInClosedState: 5
-   ringBufferSizeInHalfOpenState: 3
-   waitDurationInOpenState: 30s
-   automaticTransitionFromOpenToHalfOpenEnabled: true
+<dependencies>
+    
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+            
+        </dependency>
+   <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-bootstrap</artifactId> 
+        <version>3.1.2</version>
+       </dependency>
