@@ -25,3 +25,28 @@ spring:
 spring:
  datasource:
   url: jdbc:mysql://localhost:3306/infy_emp
+  
+  git init  -- markted as a git repo
+git config --global user.name "Mk"
+git config --global user.email "Manatharv"
+git remote add origin https:// git repository uri
+git checkout -b First  // create branch
+or
+git checkout  First  // switch branch
+git branch -a  // Show all branches
+git status
+git add . ( add to staging area )
+git commit  -m "mc"
+git pull origin First
+git push origin First 
+git pull origin master --allow-unrelated-histories
+git add MyFirst/...
+git checkout  // to comeout branch
+git checkout MyFirst/...  // to discard the changes
+git push origin --delete first(branchname) --- to delete the remote branch
+git branch -d first -- to delete local branch
+// store the current work with untracked file
+To save changes made when they’re not in a state to commit them to a repository.
+This will store the work and give a clean working directory. 
+For instance, when working on a new feature that’s not complete, 
+but an urge
