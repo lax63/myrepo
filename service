@@ -1,0 +1,46 @@
+// Write your logic here
+		List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+		Iterable<Product> productList = productRepository.findAll();
+		
+		for(Product p : productList) {
+			ProductDTO productDTO = new ProductDTO();
+			productDTO.setAvailableQuantity(p.getAvailableQuantity());
+			productDTO.setBrand(p.getBrand());
+			productDTO.setCategory(p.getCategory());
+			productDTO.setDescription(p.getDescription());
+			productDTO.setName(p.getName());
+			productDTO.setPrice(p.getPrice());
+			productDTO.setProductId(p.getProductId());
+			productDTOList.add(productDTO);
+		}
+		
+		return productDTOList;
+    
+    //getProductById
+    Optional<Product> product = productRepository.findById(productId);
+		if(product.isEmpty()) {
+			throw new EKartProductException("ProductService.PRODUCT_NOT_AVAILABLE");
+		}
+		Product p = new Product();
+		ProductDTO productDTO = new ProductDTO();
+		productDTO.setAvailableQuantity(p.getAvailableQuantity());
+		productDTO.setBrand(p.getBrand());
+		productDTO.setCategory(p.getCategory());
+		productDTO.setDescription(p.getDescription());
+		productDTO.setName(p.getName());
+		productDTO.setPrice(p.getPrice());
+		productDTO.setProductId(p.getProductId());
+		
+		return productDTO;
+    
+    
+    
+    //reduce Quantity
+    
+    Optional<Product> product = productRepository.findById(productId);
+		if(product.isEmpty()) {
+			throw new EKartProductException("ProductService.PRODUCT_NOT_AVAILABLE");
+		}
+		Product p = product.get();
+		p.setAvailableQuantity(p.getAvailableQuantity() - productId);
+		productRepository.save(p);
