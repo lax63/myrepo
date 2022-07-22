@@ -32,6 +32,27 @@
 		productDTO.setProductId(p.getProductId());
 		
 		return productDTO;
+		
+		
+		
+		//Api
+		
+		List<ProductDTO> productDTOList = customerProductService.getAllProducts();
+		String message = environment.getProperty("{ProductService.PRODUCT_NOT_AVAILABLE}");
+		logger.info(message);
+		return new ResponseEntity<List<ProductDTO>>(productDTOList,HttpStatus.OK);
+		
+		//getbyid
+		ProductDTO productDTO = customerProductService.getProductById(productId);
+		String message = environment.getProperty("{ProductService.PRODUCT_NOT_AVAILABLE}");
+		logger.info(message);
+		return new ResponseEntity<ProductDTO>(productDTO,HttpStatus.OK);
+		
+		//reduce
+		customerProductService.reduceAvailableQuantity(productId, quantity);
+		String message = environment.getProperty("{ProductAPI.REDUCE_QUANTITY_SUCCESSFULL}");
+		logger.info(message);
+		return new ResponseEntity<String>(message,HttpStatus.OK);
     
     
     
