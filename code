@@ -1,4 +1,1 @@
-customerCartService.deleteProductFromCart(customerEmailId, productId);//deleted
-		//Write your logic here
-		String message = environment.getProperty("API.PROJECT_DELETE_SUCCESS");//message
-		return new ResponseEntity<String>(message,HttpStatus.OK);
+
