@@ -1,18 +1,4 @@
-@GetMapping(value = "/products")
-	public ResponseEntity<List<ProductDTO>> getAllProducts() throws EKartProductException {
-		List<ProductDTO> productDTOList = customerProductService.getAllProducts();
-		String message = environment.getProperty("{ProductService.PRODUCT_NOT_AVAILABLE}");
+customerProductService.reduceAvailableQuantity(productId, quantity);
+		String message = environment.getProperty("{ProductAPI.REDUCE_QUANTITY_SUCCESSFULL}");
 		logger.info(message);
-		return new ResponseEntity<List<ProductDTO>>(productDTOList,HttpStatus.OK);
-
-	}
-	
-	// Get the specific product by calling getProductById() of
-	// CustomerProductService and return the same
-	@GetMapping(value = "/product/{productId}")
-	public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer productId) throws EKartProductException {
-		
-		ProductDTO productDTO = customerProductService.getProductById(productId);
-		String message = environment.getProperty("{ProductService.PRODUCT_NOT_AVAILABLE}");
-		logger.info(message);
-		return new ResponseEntity<ProductDTO>(productDTO,HttpStatus.OK);
+		return new ResponseEntity<String>(message,HttpStatus.OK);
