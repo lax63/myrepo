@@ -1,7 +1,18 @@
-Optional<Product> product = productRepository.findById(productId);
-		if(product.isEmpty()) {
-			throw new EKartProductException("ProductService.PRODUCT_NOT_AVAILABLE");
-		}
-		Product p = product.get();
-		p.setAvailableQuantity(p.getAvailableQuantity() - quantity);
-		productRepository.save(p);
+@GetMapping(value = "/products")
+	public ResponseEntity<List<ProductDTO>> getAllProducts() throws EKartProductException {
+		List<ProductDTO> productDTOList = customerProductService.getAllProducts();
+		String message = environment.getProperty("{ProductService.PRODUCT_NOT_AVAILABLE}");
+		logger.info(message);
+		return new ResponseEntity<List<ProductDTO>>(productDTOList,HttpStatus.OK);
+
+	}
+	
+	// Get the specific product by calling getProductById() of
+	// CustomerProductService and return the same
+	@GetMapping(value = "/product/{productId}")
+	public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer productId) throws EKartProductException {
+		
+		ProductDTO productDTO = customerProductService.getProductById(productId);
+		String message = environment.getProperty("{ProductService.PRODUCT_NOT_AVAILABLE}");
+		logger.info(message);
+		return new ResponseEntity<ProductDTO>(productDTO,HttpStatus.OK);
