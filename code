@@ -1,12 +1,4 @@
-LOGGER.info("*************In Fallback**************");
-		LOGGER.info("Customer with customer Email Id: "+ customerEmailId + "\n and Order Id: "+ transactionDTO.getOrder().getOrderId());
-		String message;
-		String exceptionmessage = exception.getMessage();
-		if(exceptionmessage == "Payment.TRANSACTION_FAILED_CVV_NOT_MATCHING") {
-			message = " Payment.TRANSACTION_FAILED_CVV_NOT_MATCHING";
-		}else {
-			message = "PaymentAPI.PAYMENT_FAILURE_FALLBACK";
-		}
-		// Write your logic here
-
-		return new ResponseEntity<String>(message,HttpStatus.GATEWAY_TIMEOUT);
+customerCartService.deleteProductFromCart(customerEmailId, productId);//deleted
+		//Write your logic here
+		String message = environment.getProperty("API.PROJECT_DELETE_SUCCESS");//message
+		return new ResponseEntity<String>(message,HttpStatus.OK);
