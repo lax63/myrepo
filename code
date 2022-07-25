@@ -1,20 +1,12 @@
-int orderId = transactionDTO.getOrder().getOrderId();
-		LOGGER.info("Recieved request for pay for order :" + orderId + " of customer : "
-				+ customerEmailId);
-		ResponseEntity<OrderDTO> orderResponse = template.getForEntity(
-				"http://CustomerMS/Ekart//customerorder-api/order/" + orderId, //getOrderDetailsFrom CustomermS
-				OrderDTO.class);
-		OrderDTO orderDTO = orderResponse.getBody();
-		Double totalPrice = orderResponse.getBody().getTotalPrice();
-		transactionDTO.setOrder(orderDTO);
-		transactionDTO.setTotalPrice(totalPrice);
-		transactionDTO.setTransactionDate(orderDTO.getDateOfOrder());
-		transactionDTO = paymentService.authenticatePayment(customerEmailId, transactionDTO);
-		paymentService.addTransaction(transactionDTO);
-		String transactionStatus = transactionDTO.getTransactionStatus().name();
-		paymentCircuitBreakerService.updateOrderAfterPayment(orderId, transactionStatus);
-		String message = environment.getProperty("PaymentAPI.TRANSACTION_SUCCESSFULL_ONE")+ orderId + 
-				environment.getProperty("PaymentAPI.TRANSACTION_SUCCESSFULL_TWO") + orderId +
-				environment.getProperty("PaymentAPI.TRANSACTION_SUCCESSFULL_TWO") + transactionDTO.getTransactionId();
+LOGGER.info("*************In Fallback**************");
+		LOGGER.info("Customer with customer Email Id: "+ customerEmailId + "\n and Order Id: "+ transactionDTO.getOrder().getOrderId());
+		String message;
+		String exceptionmessage = exception.getMessage();
+		if(exceptionmessage == "Payment.TRANSACTION_FAILED_CVV_NOT_MATCHING") {
+			message = " Payment.TRANSACTION_FAILED_CVV_NOT_MATCHING";
+		}else {
+			message = "PaymentAPI.PAYMENT_FAILURE_FALLBACK";
+		}
+		// Write your logic here
 
-		return new ResponseEntity<String>(message,HttpStatus.OK);
+		return new ResponseEntity<String>(message,HttpStatus.GATEWAY_TIMEOUT);
