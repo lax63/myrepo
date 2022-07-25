@@ -1,18 +1,15 @@
-List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
-		Iterable<Product> productList = productRepository.findAll();
-		if(productList.equals(null)) {
+Optional<Product> product = productRepository.findById(productId);
+		if(product.isEmpty()) {
 			throw new EKartProductException("ProductService.PRODUCT_NOT_AVAILABLE");
 		}
-		for(Product p : productList) {
-			ProductDTO productDTO = new ProductDTO();
-			productDTO.setAvailableQuantity(p.getAvailableQuantity());
-			productDTO.setBrand(p.getBrand());
-			productDTO.setCategory(p.getCategory());
-			productDTO.setDescription(p.getDescription());
-			productDTO.setName(p.getName());
-			productDTO.setPrice(p.getPrice());
-			productDTO.setProductId(p.getProductId());
-			productDTOList.add(productDTO);
-		}
+		Product p = product.get();
+		ProductDTO productDTO = new ProductDTO();
+		productDTO.setAvailableQuantity(p.getAvailableQuantity());
+		productDTO.setBrand(p.getBrand());
+		productDTO.setCategory(p.getCategory());
+		productDTO.setDescription(p.getDescription());
+		productDTO.setName(p.getName());
+		productDTO.setPrice(p.getPrice());
+		productDTO.setProductId(p.getProductId());
 		
-		return productDTOList;
+		return productDTO;
