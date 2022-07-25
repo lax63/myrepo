@@ -3,13 +3,5 @@ Optional<Product> product = productRepository.findById(productId);
 			throw new EKartProductException("ProductService.PRODUCT_NOT_AVAILABLE");
 		}
 		Product p = product.get();
-		ProductDTO productDTO = new ProductDTO();
-		productDTO.setAvailableQuantity(p.getAvailableQuantity());
-		productDTO.setBrand(p.getBrand());
-		productDTO.setCategory(p.getCategory());
-		productDTO.setDescription(p.getDescription());
-		productDTO.setName(p.getName());
-		productDTO.setPrice(p.getPrice());
-		productDTO.setProductId(p.getProductId());
-		
-		return productDTO;
+		p.setAvailableQuantity(p.getAvailableQuantity() - quantity);
+		productRepository.save(p);
